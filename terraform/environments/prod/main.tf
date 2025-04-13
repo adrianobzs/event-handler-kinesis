@@ -97,7 +97,11 @@ resource "aws_lambda_event_source_mapping" "lambda_1" {
   starting_position = "LATEST"
   filter_criteria {
     filter {
-      pattern = jsonencode({ "data" : {"consumidorID" : ["lambda1"] }})
+      pattern = jsonencode({ "data" : {
+        "consumidorID" : ["lambda1"],
+        "produtorID" : [{"exists" : true}],
+        "dummy_data" : [{"exists" : true}]
+      }})
     }
   }
 }
@@ -108,7 +112,11 @@ resource "aws_lambda_event_source_mapping" "lambda_2" {
   starting_position = "LATEST"
   filter_criteria {
     filter {
-      pattern = jsonencode({ "data" : {"consumidorID" : ["lambda2"] }})
+      pattern = jsonencode({ "data" : {
+        "consumidorID" : ["lambda2"],
+        "produtorID" : [{"exists" : true}],
+        "dummy_data" : [{"exists" : true}]
+      }})
     }
   }
 }

@@ -10,15 +10,15 @@ table = dynamodb.Table('events-consumer-2-test')
 def lambda_handler(event, context):
     for record in event["Records"]:
         try:
-            # Decodifica o payload do Kinesis
+            # decodifica o payload do Kinesis
             payload = json.loads(base64.b64decode(record["kinesis"]["data"]).decode('utf-8'))
             produtor_id = payload["produtorID"]
             consumidor_id = payload["consumidorID"]
             
-            # Gera uma Partition Key única para o DynamoDB
+            # gera a partition key concatenando os ids do produtor - consumidor - uuid
             dynamo_pk = f"{produtor_id}_{consumidor_id}_{str(uuid.uuid4())}"
             
-            # Salva no DynamoDB sem risco de sobrescrita
+            # salva os dados na tabela
             table.put_item(Item={
                 "pk": dynamo_pk,  # Chave única composta
                 "produtorID": produtor_id,
