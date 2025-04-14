@@ -1,5 +1,6 @@
 package com.interview.kinesis_producers.producer;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.services.kinesis.KinesisClient;
@@ -8,8 +9,14 @@ import software.amazon.awssdk.services.kinesis.model.PutRecordRequest;
 @Component
 public class KinesisProducer {
     private final String STREAM_NAME = "events-stream-test";
+    private final KinesisClient kinesisClient;
+
+    @Autowired
+    public KinesisProducer(KinesisClient kinesisClient) {
+        this.kinesisClient = kinesisClient;
+    }
+
     public void sendEvent(String producerID, String consumidorID, String message) {
-        var client = KinesisClient.builder().build();
         String payload = String.format("{\"produtorID\":\"%s\",\"consumidorID\":\"%s\",\"dummy_data\":\"%s\"}",
                 producerID, consumidorID, message);
 
@@ -19,7 +26,7 @@ public class KinesisProducer {
                 .data(SdkBytes.fromUtf8String(payload))
                 .build();
 
-        client.putRecord(request);
+        kinesisClient.putRecord(request);
         System.out.println("[" + Thread.currentThread().getName() + "] Evento enviado: " + payload);
     }
 }

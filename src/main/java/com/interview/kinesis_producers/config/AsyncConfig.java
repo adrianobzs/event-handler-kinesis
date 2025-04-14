@@ -1,9 +1,12 @@
 package com.interview.kinesis_producers.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import software.amazon.awssdk.services.kinesis.KinesisClient;
+
 import java.util.concurrent.Executor;
 
 @Configuration
@@ -16,5 +19,10 @@ public class AsyncConfig implements AsyncConfigurer {
         executor.setThreadNamePrefix("ProducerThread-");
         executor.initialize();
         return executor;
+    }
+
+    @Bean
+    public KinesisClient kinesisClient() {
+        return KinesisClient.builder().build();
     }
 }
