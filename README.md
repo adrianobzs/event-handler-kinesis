@@ -36,27 +36,27 @@ enquanto um cluster Kafka teria custos fixos elevados, mesmo em períodos ocioso
 
 # Apache Kafka vs. Amazon Kinesis
 
-| Categoria                 | Apache Kafka                          | Amazon Kinesis                         |
-|---------------------------|---------------------------------------|----------------------------------------|
-| Stream of records container | Topic                               | Stream                                |
-| Data Stored in...         | Kafka Partition                      | Kinesis Shard                         |
-| Unique ID of a record     | Offset number                        | Sequence number                       |
-| Ordering under...         | Partition level                      | Shard level                           |
-| **Features**              |                                       |                                        |
-| SDK Support               | Kafka SDK supports Java              | AWS SDK supports Android, Java, Go, .NET |
-| Configuration & Features  | More control on configuration        | Number of days/shards can only be configured |
-| Reliability               | Replication factor configurable      | Writes synchronously to 3 machines/datacenters |
-| Performance               | Kafka wins                           | Writes each message synchronously to 3 machines |
-| Data Retention            | Configurable                         | 7 days at max                         |
-| Log Compaction            | Supported                            | Not supported                         |
-| Processing Events         | >1000 events/sec                     | ~1000 events/sec                      |
-| Producer Throughput       | Kafka Wins                           | Slower than Kafka                     |
-| **Operações**             |                                       |                                        |
-| Setup                     | Weeks                                | A couple of hours                      |
-| Configuration Store       | Apache Zookeeper                     | Amazon DynamoDB                       |
-| Checkpointing             | Offsets stored in a special topic    | DynamoDB                              |
-| Incident Risk/Maintenance | High (manual management)             | Fully managed by AWS                  |
-| Human Costs               | Requires human support for clusters  | Pay-as-you-go, no management needed   |
+| Categoria                 | Apache Kafka                          | Amazon Kinesis                                                                                     |
+|---------------------------|---------------------------------------|----------------------------------------------------------------------------------------------------|
+| Stream of records container | Topic                               | Stream                                                                                             |
+| Data Stored in...         | Kafka Partition                      | Kinesis Shard                                                                                      |
+| Unique ID of a record     | Offset number                        | Sequence number                                                                                    |
+| Ordering under...         | Partition level                      | Shard level                                                                                        |
+| **Features**              |                                       |                                                                                                    |
+| SDK Support               | Kafka SDK supports Java              | <span style="background-color:yellow; color:black">AWS SDK supports Android, Java, Go, .NET</span> |
+| Configuration & Features  | More control on configuration        | Number of days/shards can only be configured                                                       |
+| Reliability               | Replication factor configurable      | Writes synchronously to 3 machines/datacenters                                                     |
+| Performance               | Kafka wins                           | Writes each message synchronously to 3 machines                                                    |
+| Data Retention            | Configurable                         | 1 year                                                                                             |
+| Log Compaction            | Supported                            | Not supported                                                                                      |
+| Processing Events         | >1000 events/sec                     | ~1000 events/sec                                                                                   |
+| Producer Throughput       | Kafka Wins                           | Slower than Kafka                                                                                  |
+| **Operações**             |                                       |                                                                                                    |
+| Setup                     | Weeks                                | <span style="background-color:yellow; color:black">A couple of hours</span>                        |
+| Configuration Store       | Apache Zookeeper                     | Amazon DynamoDB                                                                                    |
+| Checkpointing             | Offsets stored in a special topic    | DynamoDB                                                                                           |
+| Incident Risk/Maintenance | High (manual management)             | <span style="background-color:yellow; color:black">Fully managed by AWS</span>                     |
+| Human Costs               | Requires human support for clusters  | <span style="background-color:yellow; color:black">Pay-as-you-go, no management needed</span>      |
 
 *Fonte: Adaptado de [Softkraft - AWS Kinesis vs Kafka Comparison](https://www.softkraft.co/aws-kinesis-vs-kafka-comparison/)*
 **Legenda:**
