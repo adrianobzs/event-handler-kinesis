@@ -16,10 +16,7 @@ public class KinesisProducer {
         this.kinesisClient = kinesisClient;
     }
 
-    public void sendEvent(String producerID, String consumidorID, String message) {
-        String payload = String.format("{\"produtorID\":\"%s\",\"consumidorID\":\"%s\",\"dummy_data\":\"%s\"}",
-                producerID, consumidorID, message);
-
+    public void sendEvent(String consumidorID, String payload) {
         PutRecordRequest request = PutRecordRequest.builder()
                 .streamName(STREAM_NAME)
                 .partitionKey(consumidorID)

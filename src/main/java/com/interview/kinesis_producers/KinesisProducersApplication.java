@@ -21,8 +21,9 @@ public class KinesisProducersApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) {
-		producerRunner.runProducer(produtores[0], consumidores[0],5);
-		producerRunner.runProducer(produtores[1], consumidores[0], 5);
-		producerRunner.runProducer(produtores[1], consumidores[1], 5);
+		producerRunner.runProducer(produtores[0], consumidores[0],1, null);
+		producerRunner.runProducer(produtores[1], consumidores[0], 1, null);
+		producerRunner.runProducer(produtores[0], consumidores[1], 1, 1); // financeiro
+		producerRunner.runProducer(produtores[1], consumidores[1], 1, 2); // contato
 	}
 }

@@ -113,9 +113,21 @@ resource "aws_lambda_event_source_mapping" "lambda_2" {
   filter_criteria {
     filter {
       pattern = jsonencode({ "data" : {
-        "consumidorID" : ["lambda2"],
-        "produtorID" : [{"exists" : true}],
-        "dummy_data" : [{"exists" : true}]
+        "$or" : [
+          {
+            "consumidorID" : ["lambda2"],
+            "type_event" : [1],
+            "origem" : [{"exists" : true}],
+            "destino" : [{"exists" : true}],
+            "valor" : [{"exists" : true}]
+          },
+          {
+            "consumidorID" : ["lambda2"],
+            "type_event" : [2],
+            "nome" : [{"exists" : true}],
+            "telefone" : [{"exists" : true}]
+          }
+        ]
       }})
     }
   }

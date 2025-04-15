@@ -8,21 +8,28 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProducerRunner {
     private final KinesisProducer kinesisProducer;
+    private final PayloadGenerator payloadGenerator;
 
     @Autowired
-    public ProducerRunner(KinesisProducer kinesisProducer) {
+    public ProducerRunner(KinesisProducer kinesisProducer, PayloadGenerator payloadGenerator) {
         this.kinesisProducer = kinesisProducer;
+        this.payloadGenerator = payloadGenerator;
     }
 
     @Async
-    public void runProducer(String producerId, String consumidorId, int numEvents) {
-        for (int i = 1; i <= numEvents; i++) {
-            kinesisProducer.sendEvent(producerId, consumidorId,"Evento " + i + " - " + producerId);
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
+    public void runProducer(String producerId, String consumerId, int numEvents, Integer eventType) {
+        for (int i = 0; i < numEvents; i++) {
+            String payload = payloadGenerator.generatePayload(producerId, consumerId, eventType);
+            kinesisProducer.sendEvent(consumerId, payload);
+            sleep();
+        }
+    }
+
+    private void sleep() {
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
     }
 }
